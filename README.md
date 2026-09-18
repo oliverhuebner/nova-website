@@ -3,7 +3,7 @@
 ![Waitly](/src/app/opengraph-image.png)
 
 <p>
-  Quickly launch a sleek waitlist page for your next project! This template leverages the power of Next.js, uses Notion as a simple CMS, incorporates Upstash Redis for rate limiting, and sends emails via Resend with your custom domain.
+  Quickly launch a sleek waitlist page for your next project! This template leverages the power of Next.js, uses Notion as a simple CMS, and incorporates Upstash Redis for rate limiting.
 </p>
 
 <p>
@@ -12,14 +12,13 @@
 
 ## Deploy to Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FIdee8%2FWaitly&env=UPSTASH_REDIS_REST_URL,UPSTASH_REDIS_REST_TOKEN,NOTION_SECRET,NOTION_DB,RESEND_API_KEY,RESEND_FROM_EMAIL&envDescription=Environment%20variables%20needed%20for%20the%20Waitly%20template.&project-name=my-waitlist&repository-name=my-waitlist-app&template=Waitly)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FIdee8%2FWaitly&env=UPSTASH_REDIS_REST_URL,UPSTASH_REDIS_REST_TOKEN,NOTION_SECRET,NOTION_DB&envDescription=Environment%20variables%20needed%20for%20the%20Waitly%20template.&project-name=my-waitlist&repository-name=my-waitlist-app&template=Waitly)
 
 ## Core Features
 
 - **Next.js 16**: Built with the latest features of the leading React framework for performance and developer experience.
 - **Notion as CMS**: Seamlessly manage your waitlist entries directly within a Notion database.
 - **Upstash Redis**: Implement robust rate limiting for signups using serverless Redis.
-- **Resend Integration**: Send transactional emails (e.g., confirmation emails) through Resend using your custom domain.
 - **One-Click Vercel Deploy**: Get your waitlist live in minutes.
 - **Tailwind CSS & React**: Modern, responsive UI built with utility-first CSS and React components.
 - **TypeScript**: Type safety for a more robust codebase.
@@ -47,16 +46,7 @@ Upstash provides serverless Redis. This template uses it for rate limiting signu
 2.  Create a new Redis database.
 3.  From the database details page, note down the `REST API -> Endpoint` (this is your `UPSTASH_REDIS_REST_URL`) and `REST API -> Read-only Token` or a custom token with write access (this is your `UPSTASH_REDIS_REST_TOKEN`). Ensure the token has write permissions if you're using it for operations that modify data.
 
-### 2. Resend
-
-Resend is used for sending transactional emails (e.g., signup confirmations).
-
-1.  Create an account at [Resend](https://resend.com/).
-2.  Add and verify your domain (e.g., `yourdomain.com`).
-3.  Generate an API key from the "API Keys" section. This will be your `RESEND_API_KEY`.
-4.  Note the email address you'll send from (e.g., `waitlist@yourdomain.com`). This will be your `RESEND_FROM_EMAIL`.
-
-### 3. Notion
+### 2. Notion
 
 Your waitlist data will be stored in a Notion database.
 
@@ -117,11 +107,6 @@ To run this project on your local machine:
     # Notion
     NOTION_SECRET=your_notion_secret_key
     NOTION_DB=your_notion_database_id
-
-    # Resend
-    RESEND_API_KEY=your_resend_api_key
-    RESEND_FROM_EMAIL=you@yourdomain.com # Email address to send from (must be verified in Resend)
-    # RESEND_REPLY_TO_EMAIL=reply@yourdomain.com # Optional: Email address for replies
     ```
 
 4.  **Run the Development Server:**
@@ -131,13 +116,6 @@ To run this project on your local machine:
     ```
 
     Your application should now be running on `http://localhost:3000`.
-
-5.  **Run the Email Preview Server (Optional):**
-    If you're working on email templates, Resend allows local previewing of emails.
-    ```bash
-    pnpm email
-    ```
-    This typically starts a server on `http://localhost:3001` (or as configured in `package.json`).
 
 ## License
 

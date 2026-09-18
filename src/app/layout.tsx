@@ -3,7 +3,6 @@ import { Geist_Mono, Inter_Tight } from "next/font/google";
 import { Toaster } from "sonner";
 
 import "./globals.css";
-import Header from "~/components/header";
 import { ThemeProvider } from "~/providers/theme-provider";
 
 const geistMono = Geist_Mono({
@@ -20,7 +19,7 @@ const interTight = Inter_Tight({
 export const metadata: Metadata = {
 	title: "Revoks — Next.js + Notion Waitlist Template",
 	description:
-		"A simple Next.js waitlist template with Notion as CMS and Resend to send emails created with React Email and Upstash Redis for rate limiting. Deployed on Vercel.",
+		"A simple Next.js waitlist template with Notion as CMS and Upstash Redis for rate limiting. Deployed on Vercel.",
 };
 
 export default function RootLayout({
@@ -34,7 +33,6 @@ export default function RootLayout({
 				className={`${interTight.variable} ${geistMono.variable} antialiased flex flex-col h-full`}
 			>
 				<ThemeProvider>
-					<Header />
 					<Toaster />
 					{children}
 				</ThemeProvider>

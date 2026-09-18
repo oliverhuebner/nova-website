@@ -2,12 +2,9 @@
 
 import { useRef } from "react";
 
-import Demo from "~/components/demo";
-import Faq from "~/components/faq";
 import Footer from "~/components/footer";
 import Hero from "~/components/hero";
 import { Confetti, type ConfettiRef } from "~/components/magicui/confetti";
-import Powered from "~/components/powered";
 
 export function LandingPage({ waitlistPeople }: { waitlistPeople: number }) {
   const confettiRef = useRef<ConfettiRef>(null);
@@ -20,9 +17,6 @@ export function LandingPage({ waitlistPeople }: { waitlistPeople: number }) {
         manualstart={true}
       />
       <Hero waitlistPeople={waitlistPeople} />
-      <Demo videoSrc="/demo.mp4" thumbnailSrc="/demo.png" />
-      <Powered />
-      <Faq />
       <Footer />
     </main>
   );

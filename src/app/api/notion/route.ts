@@ -1,10 +1,32 @@
-import { NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
+import { Redis } from "@upstash/redis";
+import { Ratelimit } from "@upstash/ratelimit";
 import { notion, NOTION_DB_ID } from "~/lib/notion";
-import { generateCode } from "~/lib/utils";
 
-export async function POST(request: Request) {
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN,
+});
+
+const ratelimit = new Ratelimit({
+  redis,
+  limiter: Ratelimit.slidingWindow(2, "1 m"),
+});
+
+export async function POST(request: NextRequest) {
   try {
-    const { email, firstname, referredBy } = await request.json();
+    const xForwardedForHeader = request.headers.get("x-forwarded-for");
+    const ip = xForwardedForHeader
+      ? xForwardedForHeader.split(",")[0].trim()
+      : (request.headers.get("x-real-ip")?.trim() ?? "127.0.0.1");
+
+    const result = await ratelimit.limit(ip);
+
+    if (!result.success) {
+      return NextResponse.json({ error: "Too many requests!" }, { status: 429 });
+    }
+
+    const { email } = await request.json();
 
     if (!email) {
       return NextResponse.json(
@@ -28,43 +50,13 @@ export async function POST(request: Request) {
       );
     }
 
-    // Generate unique referral code
-    const code = generateCode();
-
-    // Find referrer by matching Referred By → Referral Code
-    let referrerPageId: string | null = null;
-    if (referredBy) {
-      const results = await notion.databases.query({
-        database_id: NOTION_DB_ID,
-        filter: {
-          property: "Referral Code",
-          rich_text: { equals: referredBy },
-        },
-      });
-
-      if (results.results.length > 0) {
-        referrerPageId = results.results[0].id;
-      }
-    }
-
-    // Create new entry
     const page = await notion.pages.create({
       parent: { database_id: NOTION_DB_ID },
       properties: {
         Name: {
-          title: [{ text: { content: firstname || email.split("@")[0] } }],
+          title: [],
         },
         Email: { email },
-        "Referral Code": {
-          rich_text: [{ text: { content: code } }],
-        },
-        "Referred By": referredBy
-          ? { rich_text: [{ text: { content: referredBy } }] }
-          : { rich_text: [] },
-        // Link referrer via Relation
-        Referrer: referrerPageId
-          ? { relation: [{ id: referrerPageId }] }
-          : { relation: [] },
       },
     });
 
@@ -72,23 +64,22 @@ export async function POST(request: Request) {
       {
         success: true,
         message: "Added to waitlist",
-        code, // ← Used in form to generate share link
         notionId: page.id,
       },
       { status: 200 }
     );
   } catch (error: unknown) {
     if (error instanceof Error) {
-    console.error("Notion API error:", error.message);
-    
-    return NextResponse.json(
-      {
-        error: "Failed to save to Notion",
-        details: error.message,
-        success: false,
-      },
-      { status: 500 }
-    );
+      console.error("Notion API error:", error.message);
+
+      return NextResponse.json(
+        {
+          error: "Failed to save to Notion",
+          details: error.message,
+          success: false,
+        },
+        { status: 500 }
+      );
     }
   }
 }
