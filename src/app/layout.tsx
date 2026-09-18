@@ -18,9 +18,9 @@ const interTight = Inter_Tight({
 });
 
 export const metadata: Metadata = {
-	title: "Revoks — Next.js + Notion Waitlist Template",
+	title: "nova",
 	description:
-		"A simple Next.js waitlist template with Notion as CMS and Upstash Redis for rate limiting. Deployed on Vercel.",
+		"Learn advanced financial literacy skills to better manage your money.",
 };
 
 export default function RootLayout({

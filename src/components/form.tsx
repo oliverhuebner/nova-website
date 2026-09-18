@@ -50,7 +50,7 @@ export default function WaitlistForm({ onSuccessChange }: FormProps) {
 				throw new Error(err);
 			}
 
-			toast.success("You're on the waitlist!");
+			toast.success("Congrats! You've successfully signed up.");
 			setSuccess(true);
 			onSuccessChange?.(true);
 
