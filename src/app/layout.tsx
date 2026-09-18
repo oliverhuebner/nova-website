@@ -17,10 +17,25 @@ const interTight = Inter_Tight({
 	weight: ["400", "500", "600", "700"],
 });
 
+const title = "nova";
+const description =
+	"Learn advanced financial literacy skills to better manage your money.";
+
 export const metadata: Metadata = {
-	title: "nova",
-	description:
-		"Learn advanced financial literacy skills to better manage your money.",
+	title,
+	description,
+	applicationName: "Nova",
+	openGraph: {
+		title,
+		description,
+		siteName: "Nova",
+		type: "website",
+	},
+	twitter: {
+		card: "summary_large_image",
+		title,
+		description,
+	},
 };
 
 export default function RootLayout({

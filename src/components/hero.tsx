@@ -26,11 +26,11 @@ export default function Hero({ waitlistPeople }: { waitlistPeople: number }) {
 			</div>
 			<div className="flex flex-col items-center justify-center gap-2 max-w-2xl">
 				<h2 className="text-4xl font-bold text-foreground">
-					{isSuccess ? "Congrats!" : "Receive your free consultation"}
+					{isSuccess ? "You're on the waitlist" : "Receive your free consultation"}
 				</h2>
 				<p className="text-base text-muted-foreground text-center max-w-md">
 					{isSuccess
-						? "You've successfully signed up. You'll receive a message from one of our senior advisors shortly."
+						? "You've successfully secured your spot. One of our senior advisors will be in contact shortly."
 						: "Learn advanced financial literacy skills to better manage your money."}
 				</p>
 			</div>
