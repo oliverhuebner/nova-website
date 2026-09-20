@@ -5,6 +5,8 @@ import { motion } from "motion/react";
 import { toast } from "sonner";
 import confetti from "canvas-confetti";
 
+import { newEventId, trackPixelEvent } from "~/lib/meta-pixel";
+
 interface FormProps {
 	onSuccessChange?: (success: boolean) => void;
 }
@@ -34,10 +36,14 @@ export default function WaitlistForm({ onSuccessChange }: FormProps) {
 		try {
 			setLoading(true);
 
+			// Shared with the server-side Conversions API event so Meta counts
+			// the two copies of this Lead as one.
+			const eventId = newEventId();
+
 			const notionRes = await fetch("/api/notion", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ email }),
+				body: JSON.stringify({ email, eventId }),
 			});
 
 			if (!notionRes.ok) {
@@ -49,6 +55,8 @@ export default function WaitlistForm({ onSuccessChange }: FormProps) {
 				const err = notionRes.status === 429 ? "Rate limited" : "Notion failed";
 				throw new Error(err);
 			}
+
+			trackPixelEvent("Lead", { content_name: "Waitlist" }, eventId);
 
 			toast.success("Congrats! You've successfully signed up.");
 			setSuccess(true);

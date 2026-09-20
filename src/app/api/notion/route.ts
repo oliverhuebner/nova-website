@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
 import { Ratelimit } from "@upstash/ratelimit";
+import { sendCapiEvent } from "~/lib/meta-capi";
 import { notion, NOTION_DB_ID } from "~/lib/notion";
 
 const redis = new Redis({
@@ -26,7 +27,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Too many requests!" }, { status: 429 });
     }
 
-    const { email } = await request.json();
+    const { email, eventId } = await request.json();
 
     if (!email) {
       return NextResponse.json(
@@ -58,6 +59,13 @@ export async function POST(request: NextRequest) {
         },
         Email: { email },
       },
+    });
+
+    await sendCapiEvent(request, {
+      name: "Lead",
+      email,
+      eventId,
+      customData: { content_name: "Waitlist" },
     });
 
     return NextResponse.json(
