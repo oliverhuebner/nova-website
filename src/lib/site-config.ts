@@ -59,9 +59,9 @@ export const siteConfig = {
 	},
 
 	/**
-	 * These four have to keep matching the ad creative that sends paid traffic
-	 * here. A visitor who clicked for covered calls and lands on budgeting tips
-	 * reads the page as a bait and switch and leaves.
+	 * The first four have to keep matching the ad creative that sends paid
+	 * traffic here. A visitor who clicked for covered calls and lands on
+	 * budgeting tips reads the page as a bait and switch and leaves.
 	 */
 	benefits: [
 		{
@@ -83,6 +83,11 @@ export const siteConfig = {
 			id: "technical-analysis",
 			title: "Technical analysis",
 			body: "Read a chart well enough to enter and exit on a plan instead of a gut feeling, and know what charts can't tell you.",
+		},
+		{
+			id: "many-other-techniques",
+			title: "And many other techniques",
+			body: "Dividend capture, cash-secured puts, Roth conversions, rebalancing, and index fund selection. We start with whatever fits your situation, not a fixed curriculum.",
 		},
 	],
 

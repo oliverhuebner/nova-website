@@ -13,7 +13,7 @@ export default function Benefits() {
 				{siteConfig.benefits.map((benefit) => (
 					<li
 						key={benefit.id}
-						className="flex flex-col gap-2 rounded-xl border border-border p-5"
+						className="flex flex-col gap-2 rounded-xl border border-border p-5 sm:last:odd:col-span-2"
 					>
 						<h3 className="font-semibold text-foreground">{benefit.title}</h3>
 						<p className="text-sm text-muted-foreground text-pretty">
