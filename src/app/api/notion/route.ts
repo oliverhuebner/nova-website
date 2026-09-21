@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
 
     if (existing.results.length > 0) {
       return NextResponse.json(
-        { error: "That email is already on the list — we'll be in touch soon." },
+        { error: "That email is already on the list. We'll be in touch soon." },
         { status: 409 }
       );
     }

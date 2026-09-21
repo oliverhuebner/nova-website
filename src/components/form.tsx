@@ -51,7 +51,7 @@ export default function WaitlistForm({ onSuccessChange }: FormProps) {
 			// they get the same confirmation as everyone else. No Lead fires: Meta
 			// already counted this person the first time round.
 			if (notionRes.status === 409) {
-				toast.success("You're already on the list — we'll be in touch soon.");
+				toast.success("You're already on the list. We'll be in touch soon.");
 				setSuccess(true);
 				onSuccessChange?.(true);
 				setEmail("");

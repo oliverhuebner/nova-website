@@ -14,17 +14,17 @@ export const siteConfig = {
 	privacyUpdated: "September 2026",
 
 	meta: {
-		title: "Smart Money Nova — Make Your Money Earn More Money",
+		title: "Smart Money Nova: Make Your Money Earn More Money",
 		titleTemplate: "%s · Smart Money Nova",
 		description:
-			"Covered calls, tax-loss harvesting, T-bills and bonds, technical analysis — walked through one-on-one. Request your free consultation with Smart Money Nova.",
+			"Covered calls, tax-loss harvesting, T-bills and bonds, technical analysis, walked through one-on-one. Request your free consultation with Smart Money Nova.",
 	},
 
 	hero: {
 		eyebrow: "Financial education",
 		headline: "Make your money earn more money",
 		subheadline:
-			"Covered calls, tax-loss harvesting, T-bills and bonds, technical analysis — walked through one-on-one, in plain English. Enter your email to request your free consultation.",
+			"Covered calls, tax-loss harvesting, T-bills and bonds, technical analysis, walked through one-on-one in plain English. Enter your email to request your free consultation.",
 		successHeadline: "Your consultation request is in",
 		successBody:
 			"Check your inbox for a confirmation email. We'll follow up within two business days to schedule a time that works for you.",
@@ -50,7 +50,7 @@ export const siteConfig = {
 
 	/**
 	 * The countdown is intentionally off. Turn it back on only for a real
-	 * deadline — an expired timer reads as "this offer is gone".
+	 * deadline. An expired timer reads as "this offer is gone".
 	 */
 	countdown: {
 		enabled: false,
@@ -67,7 +67,7 @@ export const siteConfig = {
 		{
 			id: "covered-calls",
 			title: "Covered calls",
-			body: "Turn stock you already own into recurring income — and understand exactly what you give up in exchange for it.",
+			body: "Turn stock you already own into recurring income, and understand exactly what you give up in exchange for it.",
 		},
 		{
 			id: "tax-loss-harvesting",
@@ -82,7 +82,7 @@ export const siteConfig = {
 		{
 			id: "technical-analysis",
 			title: "Technical analysis",
-			body: "Read a chart well enough to enter and exit on a plan instead of a gut feeling — and know what charts can't tell you.",
+			body: "Read a chart well enough to enter and exit on a plan instead of a gut feeling, and know what charts can't tell you.",
 		},
 	],
 
@@ -107,8 +107,8 @@ export const siteConfig = {
 	about: {
 		heading: "About Smart Money Nova",
 		body: [
-			"Smart Money Nova is a financial education service. We teach the strategies that usually stay behind a wealth manager's door — how covered calls generate income, how tax-loss harvesting lowers a tax bill, when T-bills beat a savings account, and what a chart can and can't tell you.",
-			"Your consultation is a conversation, not a sales pitch. We'll ask what you're holding and what you're trying to do with it, then walk through which of these strategies apply to you — and which ones don't.",
+			"Smart Money Nova is a financial education service. We teach the strategies that usually stay behind a wealth manager's door: how covered calls generate income, how tax-loss harvesting lowers a tax bill, when T-bills beat a savings account, and what a chart can and can't tell you.",
+			"Your consultation is a conversation, not a sales pitch. We'll ask what you're holding and what you're trying to do with it, then walk through which of these strategies apply to you and which ones don't.",
 		],
 		/**
 		 * Replace with real names and credentials before driving paid traffic.
