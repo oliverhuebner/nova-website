@@ -28,7 +28,9 @@ export async function getNotionDatabaseRowCount(databaseId: string) {
 
     return allResults.length;
   } catch (error) {
+    // The count only drives optional social proof, so a Notion outage should
+    // degrade to hiding it rather than taking the whole landing page down.
     console.error("Error fetching database rows:", error);
-    throw error;
+    return 0;
   }
 }

@@ -5,6 +5,7 @@ import { Toaster } from "sonner";
 
 import "./globals.css";
 import { META_PIXEL_ID } from "~/lib/meta-pixel";
+import { siteConfig } from "~/lib/site-config";
 import { ThemeProvider } from "~/providers/theme-provider";
 
 const geistMono = Geist_Mono({
@@ -18,18 +19,21 @@ const interTight = Inter_Tight({
 	weight: ["400", "500", "600", "700"],
 });
 
-const title = "nova";
-const description =
-	"Learn advanced financial literacy skills to better manage your money.";
+const { title, description } = siteConfig.meta;
 
 export const metadata: Metadata = {
-	title,
+	metadataBase: new URL(siteConfig.url),
+	title: {
+		default: title,
+		template: siteConfig.meta.titleTemplate,
+	},
 	description,
-	applicationName: "Nova",
+	applicationName: siteConfig.name,
 	openGraph: {
 		title,
 		description,
-		siteName: "Nova",
+		siteName: siteConfig.name,
+		url: siteConfig.url,
 		type: "website",
 	},
 	twitter: {

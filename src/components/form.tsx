@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import confetti from "canvas-confetti";
 
 import { newEventId, trackPixelEvent } from "~/lib/meta-pixel";
+import { siteConfig } from "~/lib/site-config";
 
 interface FormProps {
 	onSuccessChange?: (success: boolean) => void;
@@ -49,16 +50,19 @@ export default function WaitlistForm({ onSuccessChange }: FormProps) {
 			if (!notionRes.ok) {
 				const errData = await notionRes.json();
 				if (notionRes.status === 409) {
-					toast.error(errData.error || "You're already on the waitlist!");
+					toast.error(
+						errData.error ||
+							"That email is already on the list — we'll be in touch soon.",
+					);
 					return;
 				}
 				const err = notionRes.status === 429 ? "Rate limited" : "Notion failed";
 				throw new Error(err);
 			}
 
-			trackPixelEvent("Lead", { content_name: "Waitlist" }, eventId);
+			trackPixelEvent("Lead", { content_name: "Consultation Request" }, eventId);
 
-			toast.success("Congrats! You've successfully signed up.");
+			toast.success("Request received. Check your inbox for a confirmation.");
 			setSuccess(true);
 			onSuccessChange?.(true);
 
@@ -111,30 +115,36 @@ export default function WaitlistForm({ onSuccessChange }: FormProps) {
 						onClick={resetForm}
 						className="text-sm text-muted-foreground underline"
 					>
-						Join with another email
+						Use a different email
 					</button>
 				</motion.div>
 			) : (
-				<form onSubmit={handleSubmit} className="relative">
-					<div className="flex relative">
-						<input
-							type="email"
-							name="email"
-							value={email}
-							onChange={handleChange}
-							placeholder="Email"
-							className="flex-grow bg-background border border-border text-foreground px-4 py-3 rounded-[12px] focus:outline-none focus:ring-2 focus:ring-seaweed focus:ring-offset-2"
-							disabled={loading}
-							required
-						/>
-						<button
-							type="submit"
-							className="absolute right-0 top-0 bottom-0 bg-seaweed text-seaweed-foreground px-5 py-2 m-2 rounded-[12px] font-semibold hover:opacity-90 disabled:opacity-50 flex items-center justify-center"
-							disabled={loading}
-						>
-							{loading ? "Joining..." : "Join"}
-						</button>
-					</div>
+				<form onSubmit={handleSubmit} className="flex flex-col gap-2">
+					<label
+						htmlFor="email"
+						className="text-sm font-medium text-foreground"
+					>
+						{siteConfig.form.label}
+					</label>
+					<input
+						id="email"
+						type="email"
+						name="email"
+						autoComplete="email"
+						value={email}
+						onChange={handleChange}
+						placeholder={siteConfig.form.placeholder}
+						className="w-full bg-background border border-border text-foreground px-4 py-3 rounded-[12px] focus:outline-none focus:ring-2 focus:ring-seaweed focus:ring-offset-2"
+						disabled={loading}
+						required
+					/>
+					<button
+						type="submit"
+						className="w-full bg-seaweed text-seaweed-foreground px-5 py-3 rounded-[12px] font-semibold hover:opacity-90 disabled:opacity-50 flex items-center justify-center"
+						disabled={loading}
+					>
+						{loading ? siteConfig.form.ctaLoading : siteConfig.form.cta}
+					</button>
 				</form>
 			)}
 		</div>

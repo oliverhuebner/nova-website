@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
 
     if (existing.results.length > 0) {
       return NextResponse.json(
-        { error: "You're already on the waitlist!" },
+        { error: "That email is already on the list — we'll be in touch soon." },
         { status: 409 }
       );
     }
@@ -65,13 +65,13 @@ export async function POST(request: NextRequest) {
       name: "Lead",
       email,
       eventId,
-      customData: { content_name: "Waitlist" },
+      customData: { content_name: "Consultation Request" },
     });
 
     return NextResponse.json(
       {
         success: true,
-        message: "Added to waitlist",
+        message: "Consultation request recorded",
         notionId: page.id,
       },
       { status: 200 }

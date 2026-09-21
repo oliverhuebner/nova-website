@@ -1,6 +1,8 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "nova";
+import { siteConfig } from "~/lib/site-config";
+
+export const alt = siteConfig.meta.title;
 export const size = {
 	width: 1200,
 	height: 630,
@@ -19,46 +21,68 @@ export default function OpenGraphImage() {
 					alignItems: "center",
 					justifyContent: "center",
 					background: "#ffffff",
+					padding: 80,
 					gap: 28,
 				}}
 			>
 				<div
 					style={{
-						width: 96,
-						height: 96,
 						display: "flex",
 						alignItems: "center",
-						justifyContent: "center",
-						background: "#2a684e",
-						borderRadius: 28,
-						color: "#eff7f3",
-						fontSize: 52,
-						fontWeight: 600,
+						gap: 20,
 					}}
 				>
-					N
+					<div
+						style={{
+							width: 72,
+							height: 72,
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+							background: "#2a684e",
+							borderRadius: 22,
+							color: "#eff7f3",
+							fontSize: 40,
+							fontWeight: 600,
+						}}
+					>
+						N
+					</div>
+					<div
+						style={{
+							display: "flex",
+							fontSize: 44,
+							fontWeight: 700,
+							color: "#141414",
+						}}
+					>
+						{siteConfig.name}
+					</div>
 				</div>
 				<div
 					style={{
 						display: "flex",
-						fontSize: 64,
+						fontSize: 56,
 						fontWeight: 700,
 						color: "#141414",
+						maxWidth: 900,
+						textAlign: "center",
+						lineHeight: 1.2,
 					}}
 				>
-					nova
+					{siteConfig.hero.headline}
 				</div>
 				<div
 					style={{
 						display: "flex",
 						fontSize: 28,
 						color: "#666666",
-						maxWidth: 720,
+						maxWidth: 820,
 						textAlign: "center",
 					}}
 				>
-					Learn advanced financial literacy skills to better manage your
-					money.
+					Personalized guidance on budgeting, saving, and building better money
+					habits.
 				</div>
 			</div>
 		),
