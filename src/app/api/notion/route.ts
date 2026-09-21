@@ -9,9 +9,12 @@ const redis = new Redis({
   token: process.env.UPSTASH_REDIS_REST_TOKEN,
 });
 
+// Deliberately loose. Most of this traffic arrives from mobile ads, where a
+// whole carrier can sit behind one NAT address, so a tight per-IP limit drops
+// real submissions from people who have never touched the form.
 const ratelimit = new Ratelimit({
   redis,
-  limiter: Ratelimit.slidingWindow(2, "1 m"),
+  limiter: Ratelimit.slidingWindow(12, "1 m"),
 });
 
 export async function POST(request: NextRequest) {
@@ -77,17 +80,11 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     );
   } catch (error: unknown) {
-    if (error instanceof Error) {
-      console.error("Notion API error:", error.message);
+    console.error("Notion API error:", error);
 
-      return NextResponse.json(
-        {
-          error: "Failed to save to Notion",
-          details: error.message,
-          success: false,
-        },
-        { status: 500 }
-      );
-    }
+    return NextResponse.json(
+      { error: "Something went wrong. Try again.", success: false },
+      { status: 500 }
+    );
   }
 }

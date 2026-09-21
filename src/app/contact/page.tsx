@@ -33,9 +33,10 @@ export default function ContactPage() {
 
 			<h3>What happens on the call?</h3>
 			<p>
-				We ask about your current situation and your goals, then talk through
-				the budgeting and saving strategies that fit them. You leave with
-				concrete next steps.
+				We ask what you&rsquo;re currently holding and what you want it to do,
+				then talk through which strategies fit &mdash; covered calls,
+				tax-loss harvesting, T-bills and bonds, or reading charts. You leave
+				with concrete next steps.
 			</p>
 
 			<h3>Will you sell my email address?</h3>

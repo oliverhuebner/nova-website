@@ -47,15 +47,18 @@ export default function WaitlistForm({ onSuccessChange }: FormProps) {
 				body: JSON.stringify({ email, eventId }),
 			});
 
+			// An address we already have isn't a failure the visitor can act on, so
+			// they get the same confirmation as everyone else. No Lead fires: Meta
+			// already counted this person the first time round.
+			if (notionRes.status === 409) {
+				toast.success("You're already on the list — we'll be in touch soon.");
+				setSuccess(true);
+				onSuccessChange?.(true);
+				setEmail("");
+				return;
+			}
+
 			if (!notionRes.ok) {
-				const errData = await notionRes.json();
-				if (notionRes.status === 409) {
-					toast.error(
-						errData.error ||
-							"That email is already on the list — we'll be in touch soon.",
-					);
-					return;
-				}
 				const err = notionRes.status === 429 ? "Rate limited" : "Notion failed";
 				throw new Error(err);
 			}

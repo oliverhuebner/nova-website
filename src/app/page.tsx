@@ -1,15 +1,15 @@
 import { LandingPage } from "./page.client";
 import { connection } from "next/server";
+import { NOTION_DB_ID } from "~/lib/notion";
 import { getNotionDatabaseRowCount } from "~/lib/utils";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const [waitlistPeople] = await Promise.all([
-    await getNotionDatabaseRowCount(process.env.NOTION_DB_ID as string),
-    // forces the page to be dyamically rendered
-    await connection(),
-  ]);
+  // forces the page to be dynamically rendered
+  await connection();
+
+  const waitlistPeople = await getNotionDatabaseRowCount(NOTION_DB_ID);
 
   return <LandingPage waitlistPeople={waitlistPeople} />;
 }

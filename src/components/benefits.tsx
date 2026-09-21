@@ -9,7 +9,7 @@ export default function Benefits() {
 			<h2 className="text-2xl font-semibold text-center">
 				What you&rsquo;ll work on
 			</h2>
-			<ul className="grid gap-4 sm:grid-cols-3">
+			<ul className="grid gap-4 sm:grid-cols-2">
 				{siteConfig.benefits.map((benefit) => (
 					<li
 						key={benefit.id}
